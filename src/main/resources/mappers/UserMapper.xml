@@ -35,7 +35,11 @@
       #{isValid,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.whrj.vo.User" >
+  <!--添加操作返回受影响行数
+    keyProperty:设置到JavaBean的属性中
+    keyColum:设置数据库自动生成的主键名
+  -->
+  <insert id="insertSelective" parameterType="com.whrj.vo.User" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
     insert into t_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -145,5 +149,52 @@
         t_user
     where
         user_name = #{userName}
+    and
+        is_valid = 1
   </select>
+  <select id="selectSaleman" resultType="java.util.Map">
+    SELECT
+      u.id,
+      u.user_name AS uname
+    FROM
+      t_user u
+        JOIN t_user_role ur ON u.id = ur.user_id
+        JOIN t_role r ON r.id = ur.role_id
+    WHERE
+      r.role_name = "销售"
+      AND u.is_valid = 1
+      AND r.is_valid =1
+  </select>
+  <!--多条件查询-->
+  <select id="selectByParams" parameterType="com.whrj.query.UserQuery" resultType="com.whrj.vo.User">
+    select
+    <include refid="Base_Column_List"></include>
+    from
+    t_user
+    <where>
+      is_valid = 1
+      <if test="userName != null and userName != ''">
+        and user_name like concat('%',#{userName},'%')
+      </if>
+      <if test="email != null and email != ''">
+        and email = like concat('%',#{email},'%')
+      </if>
+      <if test="phone != null and phone != ''">
+        and phone = like concat('%',#{phone},'%')
+      </if>
+    </where>
+  </select>
+  <!--删除用户记录-->
+  <update id="deleteBatch">
+    update
+    t_user
+    set
+    is_valid = 0
+    where
+    id
+    in
+    <foreach collection="array" item="id" open="(" close=")" separator=",">
+      #{id}
+    </foreach>
+  </update>
 </mapper>

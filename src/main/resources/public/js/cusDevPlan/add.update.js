@@ -10,24 +10,26 @@ layui.use(['form', 'layer'], function () {
     form.on('submit(addOrUpdateCusDevPlan)', function (data) {
 
         // 提交数据时的加载层 （https://layer.layui.com/）
-        var index = top.layer.msg("数据提交中,请稍后...",{
-            icon:16, // 图标
-            time:false, // 不关闭
-            shade:0.8 // 设置遮罩的透明度
+        var index = top.layer.msg("数据提交中,请稍后...", {
+            icon: 16, // 图标
+            time: false, // 不关闭
+            shade: 0.8 // 设置遮罩的透明度
         });
-
+        console.log($("input[name='id']").val())
         // 得到所有的表单元素的值
         var formData = data.field;
 
         // 请求的地址
-        var url = ctx + "/cus_dev_plan/add";
-
+        var url = ctx + "/customer/add";
+        if ($("input[name='id']").val()) {
+            url = ctx + "/customer/update";
+        }
         $.post(url, formData, function (result) {
             // 判断操作是否执行成功 200=成功
             if (result.code == 200) {
                 // 成功
                 // 提示成功
-                top.layer.msg("操作成功！",{icon:6});
+                top.layer.msg("操作成功！", {icon: 6});
                 // 关闭加载层
                 top.layer.close(index);
                 // 关闭弹出层
@@ -36,7 +38,7 @@ layui.use(['form', 'layer'], function () {
                 parent.location.reload();
             } else {
                 // 失败
-                layer.msg(result.msg, {icon:5});
+                layer.msg(result.msg, {icon: 5});
             }
         });
 

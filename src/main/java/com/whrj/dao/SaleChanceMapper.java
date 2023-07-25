@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SaleChanceMapper extends BaseMapper<SaleChance,Integer> {
-
+    public Integer updateDevResult(Integer id,Integer devResult);
 }

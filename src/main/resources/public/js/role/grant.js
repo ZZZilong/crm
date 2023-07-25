@@ -20,7 +20,9 @@ function loadModuleData() {
         // 使用简单的JSON数据
         data:{
             simpleData:{
-                enable: true
+                enable: true,
+                idKey:"id",//设置之后depId为在简单数据模式中的父子节点关联的桥梁
+                pIdKey:"pid",//设置之后parentId为在简单数据模式中的父子节点关联的桥梁和id互相对应
             }
         },
         // 绑定函数
@@ -38,12 +40,14 @@ function loadModuleData() {
         // 查询所有的资源列表时，传递角色ID，查询当前角色对应的已经授权的资源
         data:{
             roleId:$("[name='roleId']").val()
+
         },
         dataType:"json",
         success:function (data) {
             // data:查询到的资源列表
             // 加载zTree树插件
             zTreeObj = $.fn.zTree.init($("#test1"), setting, data);
+            console.log(data)
         }
     });
 }

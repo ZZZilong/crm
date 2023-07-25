@@ -1,4 +1,4 @@
-layui.use(['table','layer'],function(){
+ layui.use(['table','layer'],function(){
     var layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,
         table = layui.table;
@@ -61,7 +61,7 @@ layui.use(['table','layer'],function(){
      */
     function formatDevResult(devResult) {
         if (devResult == 0) {
-            return "<div style='color: yellow'>未开发</div>";
+            return "<div style='color: #00b7ee'>未开发</div>";
         } else if (devResult == 1) {
             return "<div style='color: orange'>开发中</div>";
         } else if (devResult == 2) {
@@ -130,12 +130,10 @@ layui.use(['table','layer'],function(){
             // 宽高
             area: ['750px', '550px'],
             // url地址
-            content: ctx + "/cus_dev_plan/toCusDevPlanPage?id="+id,
+            content: ctx + "/customer/toCusDevPlanPage?id="+id,
             // 可以最大化与最小化
             maxmin:true
         });
     }
-
-
 
 });

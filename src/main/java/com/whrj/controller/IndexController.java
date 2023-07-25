@@ -2,16 +2,17 @@ package com.whrj.controller;
 
 
 import com.whrj.base.BaseController;
+import com.whrj.service.PermissionService;
 import com.whrj.service.UserService;
 import com.whrj.utils.LoginUserUtil;
 import com.whrj.vo.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 
 @Controller
@@ -20,11 +21,12 @@ public class IndexController extends BaseController {
     @Autowired
     private UserService userService;
 
+    @Resource
+    private PermissionService permissionServicel;
+
 
     /**
-     * 系统登录⻚
-     *
-     * @return
+     * 系统登录页面
      */
     @RequestMapping("index")
     public String index() {
@@ -38,7 +40,7 @@ public class IndexController extends BaseController {
     }
 
     /**
-     * 后端管理主⻚⾯
+     * 后端管理主页面
      *
      * @return
      */
@@ -47,6 +49,9 @@ public class IndexController extends BaseController {
         Integer id = LoginUserUtil.releaseUserIdFromCookie(request);
         User user = userService.selectById(id);
         request.getSession().setAttribute("user", user);
+        Integer userId = id;
+        List<String> permissions=permissionServicel.queryUserHasRolesHasPermissions(userId);
+        request.getSession().setAttribute("permissions",permissions);
         return "main";
     }
 

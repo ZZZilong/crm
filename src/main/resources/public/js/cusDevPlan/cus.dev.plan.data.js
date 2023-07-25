@@ -15,7 +15,7 @@ layui.use(['table','layer'],function(){
         // 单元格最小的宽度
         ,cellMinWidth:95
         // 访问数据的URL（后台的数据接口）
-        ,url: ctx + '/cus_dev_plan/list?saleChanceId=' + $("[name='id']").val()
+        ,url: ctx + '/customer/list?saleChanceId=' + $("[name='id']").val()
         // 开启分页
         ,page: true
         // 默认每页显示的数量
@@ -86,7 +86,7 @@ layui.use(['table','layer'],function(){
     function openAddOrUpdateCusDevPlanDialog(id) {
 
         var title = "计划项管理 - 添加计划项";
-        var url = ctx + "/cus_dev_plan/toAddOrUpdateCusDevPlanPage?sId="+$("[name='id']").val();
+        var url = ctx + "/customer/toAddOrUpdateCusDevPlanPage?sid="+$("[name='id']").val();
 
         // 判断计划项的ID是否为空 （如果为空，则表示添加；不为空则表示更新操作）
         if (id != null && id != '') {
@@ -117,7 +117,7 @@ layui.use(['table','layer'],function(){
         // 弹出确认框，询问用户是否确认删除
         layer.confirm('您确认要删除该记录吗？',{icon:3, title:'开发项数据管理'}, function (index) {
             // 发送ajax请求，执行删除操作
-            $.post(ctx + '/cus_dev_plan/delete',{id:id}, function (result) {
+            $.post(ctx + '/customer/delete',{id:id}, function (result) {
                 // 判断删除结果
                 if (result.code == 200) {
                     // 提示成功
@@ -141,9 +141,9 @@ layui.use(['table','layer'],function(){
         // 弹出确认框，询问用户是否确认删除
         layer.confirm('您确认执行该操作吗？',{icon:3, title:"营销机会管理"}, function (index) {
             // 得到需要被更新的饿营销机会的ID （通过隐藏域获取）
-            var sId = $("[name='id']").val();
+            var sid = $("[name='id']").val();
             // 发送ajax请求，更新营销机会的开发状态
-            $.post(ctx+ '/sale_chance/updateSaleChanceDevResult',{id:sId,devResult:devResult}, function (result) {
+            $.post(ctx+ '/customer/updateSaleChanceDevResult',{id:sid,devResult:devResult}, function (result) {
                 if (result.code == 200) {
                     layer.msg('更新成功！', {icon:6});
                     // 关闭窗口

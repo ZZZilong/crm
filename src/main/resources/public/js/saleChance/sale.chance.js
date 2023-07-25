@@ -158,6 +158,7 @@ layui.use(['table','layer'],function(){
             title  = "<h3>营销机会管理 - 更新营销机会</h3>";
             // 请求地址传递营销机会的ID
             url += '?saleChanceId=' + saleChanceId;
+            console.log(url);
         }
 
         // iframe层
@@ -239,7 +240,7 @@ layui.use(['table','layer'],function(){
          });
      */
     table.on('tool(saleChances)', function (data) {
-        // console.log(data);
+        console.log(data);
         // 判断类型
         if (data.event == "edit") { // 编辑操作
 

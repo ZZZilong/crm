@@ -154,7 +154,7 @@ layui.use(['table','layer'],function(){
     /**
      * 打开授权页面
      */
-    function openAddGrantDialog(data) {
+    function    openAddGrantDialog(data) {
         // 判断是否选择了角色记录
         if (data.length == 0) {
             layer.msg("请选择要授权的角色！",{icon:5});

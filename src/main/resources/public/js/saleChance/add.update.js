@@ -19,18 +19,17 @@ layui.use(['form', 'layer'], function () {
         });
 
         // 发送ajax请求
-        var url = ctx + "/sale_chance/add"; // 添加操作
+        var url = ctx + "/sale_chance/add";// 添加操作
 
         // 通过营销机会的ID来判断当前需要执行添加操作还是修改操作
         // 如果营销机会的ID为空，则表示执行添加操作；如果ID不为空，则表示执行更新操作
         // 通过获取隐藏域中的ID
-        var saleChanceId = $("[name='id']").val();
+        var saleChanceId = $("input[name='id']").val();
         // 判断ID是否为空
-        if (saleChanceId != null && saleChanceId != '') {
-            // 更新操作
+        if (saleChanceId != null && saleChanceId != "") {
             url = ctx + "/sale_chance/update";
         }
-
+            // 更新操作
         $.post(url, data.field, function (result) {
             // 判断操作是否执行成功 200=成功
             if (result.code == 200) {
@@ -48,10 +47,8 @@ layui.use(['form', 'layer'], function () {
                 layer.msg(result.msg, {icon:5});
             }
         });
-
         // 阻止表单提交
         return false;
-
     });
 
 
@@ -73,11 +70,12 @@ layui.use(['form', 'layer'], function () {
         url:ctx + "/user/queryAllSales",
         data:{},
         success:function (data) {
-            // console.log(data);
+            console.log(data);
             // 判断返回的数据是否为空
             if (data != null) {
                 // 获取隐藏域设置的指派人ID
                 var assignManId = $("#assignManId").val();
+                console.log(assignManId);
                 // 遍历返回的数据
                 for(var i = 0; i < data.length; i++) {
                     var opt = "";
@@ -85,11 +83,12 @@ layui.use(['form', 'layer'], function () {
                     if (assignManId == data[i].id) {
                         // 设置下拉选项  设置下拉选项选中
                         opt = "<option value='"+data[i].id+"' selected>"+data[i].uname+"</option>";
+                        console.log(data[i].id)
                     } else {
                         // 设置下拉选项
                         opt = "<option value='"+data[i].id+"'>"+data[i].uname+"</option>";
+                        console.log(data[i].id)
                     }
-
                     // 将下拉项设置到下拉框中
                     $("#assignMan").append(opt);
                 }

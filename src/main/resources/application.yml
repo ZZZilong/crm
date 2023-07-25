@@ -37,6 +37,5 @@ pagehelper:
 logging:
   level:
     com:
-      xxxx:
-        crm:
+      whrj:
          dao: debug

@@ -5,17 +5,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * 乐字节：专注线上IT培训
- * 答疑老师微信：lezijie
- */
 public class BaseController {
 
 
     @ModelAttribute
     public void preHandler(HttpServletRequest request){
         request.setAttribute("ctx", request.getContextPath());
-        System.out.println("ctx="+request.getContextPath());
     }
 
 

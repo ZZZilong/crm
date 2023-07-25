@@ -13,7 +13,11 @@ import lombok.ToString;
 @Setter
 @ToString
 public class SaleChanceQuery extends BaseQuery {
+    //营销机会查询
     private  String customerName;
     private  String createMan;
     private String state;
+    //客户查询
+    private Integer devResult;
+    private String assignMan;
 }
